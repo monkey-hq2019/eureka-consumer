@@ -1,0 +1,25 @@
+#端口号
+server:
+  port: 8763
+
+#服务名
+spring:
+  application:
+    name: eureka-consumer-service
+
+#eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    #是否开启健康检查
+    healthcheck:
+      enabled: true
+  instance:
+    #是否开启IP注册
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}.${spring.cloud.client.ip-address}:${server.port}
+    #每隔15秒向服务中心发送一次心跳
+    lease-renewal-interval-in-seconds: 15
+    #如果距离上次心跳后等待30秒后，服务中心还不能接受到心跳则移除此服务
+    lease-expiration-duration-in-seconds: 30
